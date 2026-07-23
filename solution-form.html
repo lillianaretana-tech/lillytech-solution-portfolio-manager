@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Documentar solución — LillyTech Solution Portfolio Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">LillyTech</span>
+        <span class="brand-sub">Solution Portfolio Manager</span>
+      </div>
+      <div class="header-actions">
+        <div class="user-chip">
+          <span id="user-email">…</span>
+          <span id="user-role" class="role-pill">—</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-ghost">← Volver al panel</a>
+      </div>
+    </header>
+
+    <main class="main-content" style="max-width:1180px;">
+      <h1 id="solution-title">Cargando…</h1>
+      <p id="solution-subtitle" class="text-muted" style="margin-top:-6px;margin-bottom:20px;"></p>
+
+      <div id="load-error" class="form-error hidden"></div>
+
+      <div id="form-body" class="hidden">
+        <div class="overall-progress-card">
+          <div>
+            <div class="stat-value accent" id="overall-percent">0%</div>
+            <div class="stat-label">Avance documental total</div>
+          </div>
+          <div style="flex:1;">
+            <div class="progress-track"><div class="progress-fill" id="overall-progress-fill" style="width:0%"></div></div>
+            <div class="text-muted mono" id="overall-counts" style="font-size:11.5px;margin-top:6px;"></div>
+          </div>
+        </div>
+
+        <div class="doc-shell">
+          <nav class="section-nav" id="section-nav" aria-label="Secciones del formulario"></nav>
+          <div class="section-panel" id="section-panel">
+            <p class="text-muted">Selecciona una sección para comenzar.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/solution-form.js"></script>
+</body>
+</html>

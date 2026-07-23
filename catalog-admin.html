@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo maestro — LillyTech Solution Portfolio Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">LillyTech</span>
+        <span class="brand-sub">Solution Portfolio Manager</span>
+      </div>
+      <div class="header-actions">
+        <div class="user-chip">
+          <span id="user-email">…</span>
+          <span id="user-role" class="role-pill">—</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-ghost">← Volver al panel</a>
+      </div>
+    </header>
+
+    <main class="main-content" style="max-width:1180px;">
+      <h1>Catálogo maestro</h1>
+      <p class="text-muted" style="margin-top:-6px;margin-bottom:22px;">
+        Administra las secciones y preguntas que se usan en el formulario documental de todas las soluciones. Los cambios aquí se reflejan automáticamente en cada solución — nueva o existente — sin tocar código.
+      </p>
+
+      <div id="access-denied" class="form-error hidden">
+        Esta pantalla es solo para administradores. Vuelve al panel principal.
+      </div>
+
+      <div id="catalog-body" class="hidden">
+        <div class="catalog-layout">
+          <div>
+            <div class="dynamic-list-header">
+              <strong style="font-size:13.5px;">Secciones</strong>
+              <button type="button" id="btn-new-section" class="btn btn-ghost btn-sm">+ Nueva sección</button>
+            </div>
+            <div id="section-form-slot"></div>
+            <div id="sections-list" class="solutions-table-wrap" style="padding:6px;"></div>
+          </div>
+
+          <div class="section-panel" id="questions-panel">
+            <p class="text-muted">Selecciona una sección para ver y administrar sus preguntas.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/catalog-admin.js"></script>
+</body>
+</html>
