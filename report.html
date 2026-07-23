@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Reporte — LillyTech Solution Portfolio Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header no-print">
+      <div class="brand">
+        <span class="brand-mark">LillyTech</span>
+        <span class="brand-sub">Solution Portfolio Manager</span>
+      </div>
+      <div class="header-actions">
+        <div class="user-chip">
+          <span id="user-email">…</span>
+          <span id="user-role" class="role-pill">—</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-ghost">← Volver al panel</a>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div id="load-error" class="form-error hidden no-print"></div>
+
+      <div id="report-body" class="hidden">
+        <div class="report-actions-bar no-print">
+          <button id="btn-export-json" class="btn btn-ghost">Descargar JSON</button>
+          <button id="btn-export-md" class="btn btn-ghost">Descargar Markdown</button>
+          <button id="btn-print" class="btn btn-brass">Imprimir / Guardar como PDF</button>
+        </div>
+        <div class="report-page" id="report-content"></div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/report.js"></script>
+</body>
+</html>
