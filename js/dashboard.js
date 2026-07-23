@@ -3,7 +3,7 @@
 // =====================================================================
 
 import { supabase } from './supabase-client.js';
-import { requireSession, getCurrentProfile, canEdit, logout } from './auth.js';
+import { requireSession, getCurrentProfile, canEdit, isAdmin, logout } from './auth.js';
 import { logActivity } from './activity-log.js';
 import { getProgressForSolutions } from './progress.js';
 import { DEV_STATUS, DOC_STATUS, badgeHtml, formatDateTime, escapeHtml } from './constants.js';
@@ -32,6 +32,9 @@ async function init() {
   if (canEdit(profile)) {
     document.getElementById('btn-new-solution').classList.remove('hidden');
     document.getElementById('btn-new-solution-empty').classList.remove('hidden');
+  }
+  if (isAdmin(profile)) {
+    document.getElementById('link-catalog-admin').classList.remove('hidden');
   }
 
   populateFilterOptions();
@@ -220,6 +223,7 @@ function renderTable() {
         <td>
           <div class="row-actions">
             <a class="btn btn-ghost btn-sm" href="solution-edit.html?id=${s.id}">${editable ? 'Editar' : 'Abrir'}</a>
+            <a class="btn btn-brass btn-sm" href="solution-form.html?id=${s.id}">${editable ? 'Documentar' : 'Ver documentación'}</a>
             ${editable ? `<button class="btn btn-danger btn-sm" data-archive-toggle="${s.id}">${s.is_archived ? 'Restaurar' : 'Archivar'}</button>` : ''}
           </div>
         </td>

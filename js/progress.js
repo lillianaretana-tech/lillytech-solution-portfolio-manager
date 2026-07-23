@@ -94,3 +94,89 @@ export async function getProgressForSolution(solutionId) {
   const map = await getProgressForSolutions([solutionId]);
   return map[solutionId];
 }
+
+/**
+ * Progreso desglosado por sección para UNA solución. Se usa en la
+ * navegación lateral del formulario documental (sección 7 y 8 del
+ * documento de requerimientos: "progreso por sección"). Las secciones
+ * sin preguntas de catálogo (p. ej. "Funcionalidades", que es una
+ * lista dinámica pura) devuelven total = 0 y se muestran distinto en
+ * la interfaz (por cantidad de elementos, no por %).
+ */
+export async function getSectionBreakdown(solutionId) {
+  const { data: sections, error: sError } = await supabase
+    .from('documentation_sections')
+    .select('id, code, name, order_index')
+    .eq('is_active', true)
+    .order('order_index');
+
+  if (sError) {
+    console.error('Error obteniendo secciones:', sError);
+    return [];
+  }
+
+  const { data: questions, error: qError } = await supabase
+    .from('documentation_questions')
+    .select('id, section_id')
+    .eq('is_active', true);
+
+  if (qError) {
+    console.error('Error obteniendo preguntas activas:', qError);
+    return [];
+  }
+
+  const { data: answers, error: aError } = await supabase
+    .from('solution_answers')
+    .select('question_id, answer_text, is_not_applicable, confirmation_pending')
+    .eq('solution_id', solutionId);
+
+  if (aError) {
+    console.error('Error obteniendo respuestas:', aError);
+    return [];
+  }
+
+  const answersByQuestion = new Map(answers.map((a) => [a.question_id, a]));
+  const questionsBySection = new Map();
+  for (const q of questions) {
+    if (!questionsBySection.has(q.section_id)) questionsBySection.set(q.section_id, []);
+    questionsBySection.get(q.section_id).push(q);
+  }
+
+  return sections.map((section) => {
+    const sectionQuestions = questionsBySection.get(section.id) || [];
+    const total = sectionQuestions.length;
+    let answeredCount = 0;
+    let notApplicable = 0;
+    let pendingConfirm = 0;
+    let completed = 0;
+
+    for (const q of sectionQuestions) {
+      const ans = answersByQuestion.get(q.id);
+      if (!ans) continue;
+      const hasText = typeof ans.answer_text === 'string' && ans.answer_text.trim().length > 0;
+      if (ans.confirmation_pending) {
+        pendingConfirm += 1;
+      } else if (ans.is_not_applicable) {
+        notApplicable += 1;
+      } else if (hasText) {
+        answeredCount += 1;
+      }
+      if ((hasText || ans.is_not_applicable) && !ans.confirmation_pending) {
+        completed += 1;
+      }
+    }
+
+    return {
+      id: section.id,
+      code: section.code,
+      name: section.name,
+      orderIndex: section.order_index,
+      total,
+      answered: answeredCount,
+      notApplicable,
+      pendingConfirm,
+      pending: total - completed,
+      percent: total > 0 ? Math.round((completed / total) * 100) : null, // null = sección sin preguntas (solo lista dinámica)
+    };
+  });
+}
