@@ -516,3 +516,240 @@ textarea.input { resize: vertical; min-height: 84px; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* =====================================================================
+   ETAPA 4 — Formulario documental, listas dinámicas, catálogo maestro
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Layout de dos columnas: navegación de secciones + contenido
+   --------------------------------------------------------------------- */
+.doc-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.section-nav {
+  position: sticky;
+  top: 20px;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.section-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 11px 14px;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid var(--color-line-soft);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+.section-nav-item:last-child { border-bottom: none; }
+.section-nav-item:hover { background: var(--color-paper-alt); }
+.section-nav-item.active {
+  background: var(--color-paper-alt);
+  color: var(--color-ink);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--color-brass);
+}
+
+.section-nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--color-line);
+}
+.section-nav-dot.complete { background: var(--color-sage); }
+.section-nav-dot.partial { background: var(--color-brass); }
+.section-nav-dot.na { background: var(--color-slate); }
+
+.section-nav-label { flex: 1; }
+.section-nav-count { font-family: var(--font-mono); font-size: 10.5px; color: var(--color-ink-soft); }
+
+/* ---------------------------------------------------------------------
+   Barra de progreso general (parte superior del formulario)
+   --------------------------------------------------------------------- */
+.overall-progress-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 20px;
+}
+.overall-progress-card .progress-track { height: 10px; }
+.overall-progress-card .stat-value { font-size: 24px; }
+
+/* ---------------------------------------------------------------------
+   Tarjeta de sección activa
+   --------------------------------------------------------------------- */
+.section-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 26px 28px;
+}
+
+.section-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-line-soft);
+}
+
+.section-panel-desc { font-size: 13px; color: var(--color-ink-soft); margin-top: 4px; }
+
+.save-status {
+  font-size: 12px;
+  color: var(--color-ink-soft);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.save-status.dirty { color: var(--color-rust); }
+.save-status.saved { color: var(--color-sage); }
+
+/* ---------------------------------------------------------------------
+   Fila de pregunta
+   --------------------------------------------------------------------- */
+.question-block {
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--color-line-soft);
+}
+.question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.question-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+
+.question-required { color: var(--color-rust); font-size: 13px; }
+.question-help { font-size: 12px; color: var(--color-ink-soft); margin: -4px 0 8px 0; }
+
+.question-flags {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.flag-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--color-ink-soft);
+  font-weight: 400;
+  margin: 0;
+}
+.flag-check input { width: auto; }
+
+.question-input:disabled { background: var(--color-paper-alt); color: var(--color-ink-soft); }
+
+/* ---------------------------------------------------------------------
+   Listas dinámicas (funcionalidades, roles, reportes, métricas,
+   casos de uso, integraciones)
+   --------------------------------------------------------------------- */
+.dynamic-list-section { margin-top: 8px; }
+
+.dynamic-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.dynamic-list-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+
+.dynamic-list-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--color-paper-alt);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.dynamic-list-row-main { flex: 1; min-width: 0; }
+.dynamic-list-row-title { font-weight: 600; font-size: 13.5px; color: var(--color-ink); }
+.dynamic-list-row-meta { font-size: 12px; color: var(--color-ink-soft); margin-top: 3px; }
+.dynamic-list-row-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.inline-form {
+  background: var(--color-paper);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.inline-form-title { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-ink-soft); margin-bottom: 12px; }
+
+.empty-list-note { font-size: 13px; color: var(--color-ink-soft); font-style: italic; padding: 8px 0; }
+
+/* ---------------------------------------------------------------------
+   Catálogo maestro (administración)
+   --------------------------------------------------------------------- */
+.catalog-layout { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+
+.catalog-section-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13.5px;
+  border: 1px solid transparent;
+}
+.catalog-section-item:hover { background: var(--color-paper-alt); }
+.catalog-section-item.active { background: var(--color-paper-alt); border-color: var(--color-line); font-weight: 600; }
+.catalog-section-item.inactive-item { opacity: 0.55; }
+
+.question-admin-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--color-line-soft);
+}
+.question-admin-row:last-child { border-bottom: none; }
+.question-admin-order { font-family: var(--font-mono); font-size: 12px; color: var(--color-ink-soft); text-align: center; }
+.question-admin-text { font-size: 13.5px; }
+.question-admin-meta { font-size: 11px; color: var(--color-ink-soft); margin-top: 2px; }
+.question-admin-actions { display: flex; gap: 6px; }
+
+@media (max-width: 900px) {
+  .doc-shell, .catalog-layout { grid-template-columns: 1fr; }
+  .section-nav { position: static; max-height: none; }
+}
+
