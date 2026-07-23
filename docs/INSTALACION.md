@@ -266,5 +266,49 @@ Esta es la prueba que justifica toda la arquitectura:
 
 ## Qué falta (fases futuras)
 
-- Etapa 5: reporte individual, reporte consolidado, exportación JSON/Markdown, vista imprimible.
 - Etapa 6: validación final, checklist de aceptación completo, documentación de despliegue.
+
+---
+
+# Etapa 5 — Reportes y exportación
+
+## Archivos nuevos
+
+```
+lillytech-portfolio-manager/
+├── report.html                     (reporte individual)
+├── consolidated-report.html        (reporte consolidado)
+└── js/
+    ├── report-builder.js           (módulo compartido: carga datos + genera HTML/JSON/Markdown)
+    ├── report.js                   (lógica del reporte individual)
+    └── consolidated-report.js      (lógica del reporte consolidado)
+```
+
+`dashboard.html`/`dashboard.js` se actualizaron: cada fila tiene un botón "Reporte" que lleva a `report.html?id=...`, y apareció "Reporte consolidado" en el encabezado (visible para los tres roles, ya que viewer también puede generar reportes y exportar).
+
+## Qué quedó funcionando
+
+- **Reporte individual** (`report.html`): vista HTML imprimible con toda la información de la solución organizada por sección — propósito, problema de negocio, solución, funcionalidades, usuarios, seguridad, datos, reportes, valor, impacto, información comercial, casos de uso, integraciones, estado y evolución, implementación, observaciones. Incluye encabezado con nombre, descripción, versión, estado y fecha de generación, tal como pide la sección 9-A del documento original.
+- **Exportación JSON**: descarga un archivo estructurado con toda la información de la solución — igual a la estructura que ya usábamos internamente, ahora expuesta como archivo descargable.
+- **Exportación Markdown**: descarga un archivo `.md` con el formato exacto que pediste (`# Nombre` / `## Sección` / `Pregunta:` / `Respuesta:`), sin identificadores técnicos, listo para pegar en ChatGPT.
+- **Imprimir / Guardar como PDF**: usa la función de impresión del navegador (tal como se acordó para esta primera versión, sin librería de PDF adicional) — hay reglas de impresión dedicadas que ocultan el encabezado de la app y los botones, dejando solo el contenido del reporte.
+- **Reporte consolidado** (`consolidated-report.html`): panel de selección con checkboxes por solución, filtros por categoría, estado documental, y "solo completas" — cubre las 5 formas de selección que pediste (todas, varias, por categoría, por estado, solo completas). El reporte generado incluye portada, índice con enlaces internos, resumen general en tabla, y luego una sección completa por cada solución seleccionada, con salto de página antes de cada una al imprimir.
+- **Exportación JSON del consolidado**: un solo archivo con el arreglo de todas las soluciones incluidas, mismo formato que la exportación individual.
+- **Registro de actividad**: generar un reporte (individual o consolidado) y cada exportación quedan registrados en `solution_activity_log`, tal como pide la sección 13.
+
+## Decisiones tomadas dentro del alcance ya acordado
+
+- El PDF se genera vía "Imprimir" del navegador, no con una librería adicional (jsPDF, etc.) — exactamente lo que decía la sección 9: *"PDF mediante impresión del navegador, si no se incorpora una librería específica"*. Si más adelante prefieres un PDF con diseño más controlado, se puede agregar una librería en una fase posterior.
+- La exportación CSV/Excel del reporte individual (mencionada como "cuando sea viable" en el documento original) no se incluyó en esta entrega — el JSON y el Markdown ya cubren la necesidad principal que describiste (llevar la información a ChatGPT para generar documentos ejecutivos). Si la necesitas para otro uso (por ejemplo, abrir en Excel directamente), la agrego sin complicación reutilizando el mismo `report-builder.js`.
+- El reporte consolidado excluye soluciones archivadas del listado de selección por defecto — igual que el panel principal, para mantener el mismo criterio en toda la app. Si alguna vez necesitas incluir archivadas en un consolidado, dímelo y agrego el checkbox correspondiente.
+
+## Cómo probarlo
+
+1. Desde el panel principal, haz clic en "Reporte" sobre tu solución de prueba — deberías ver la ficha completa, con las preguntas que ya respondiste mostrando su respuesta, y las que no, mostrando "(sin responder)".
+2. Prueba "Descargar JSON" y "Descargar Markdown" — abre ambos archivos y confirma que la información coincide con lo que documentaste.
+3. Prueba "Imprimir / Guardar como PDF" — en el diálogo de impresión de tu navegador, elige "Guardar como PDF" y confirma que el resultado no incluye el menú superior de la app ni los botones.
+4. Ve a "Reporte consolidado", selecciona dos o más soluciones (o usa "Marcar todas"), genera el reporte, y confirma que aparecen portada, índice, resumen y una sección completa por cada una.
+
+## Qué falta (fase final)
+
+- Etapa 6: validación de punta a punta contra el checklist de aceptación completo (23 puntos del documento original), documentación de despliegue, y cierre formal del proyecto.
