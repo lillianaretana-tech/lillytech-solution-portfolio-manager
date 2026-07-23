@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel principal — LillyTech Solution Portfolio Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">LillyTech</span>
+        <span class="brand-sub">Solution Portfolio Manager</span>
+      </div>
+      <div class="header-actions">
+        <div class="user-chip">
+          <span id="user-email">…</span>
+          <span id="user-role" class="role-pill">—</span>
+        </div>
+        <button id="btn-new-solution" class="btn btn-brass hidden">+ Nueva solución</button>
+        <button id="btn-logout" class="btn btn-ghost">Salir</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div id="catalog-change-notice" class="form-success hidden" role="status"></div>
+
+      <section class="stats-grid" id="stats-grid" aria-label="Resumen general">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-label">Total soluciones</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value accent" id="stat-completas">—</div>
+          <div class="stat-label">Completas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-proceso">—</div>
+          <div class="stat-label">En proceso</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-revision">—</div>
+          <div class="stat-label">Pendientes de revisión</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value accent" id="stat-avance">—</div>
+          <div class="stat-label">Avance general</div>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <div class="toolbar-search">
+          <input class="input" type="search" id="search-input" placeholder="Buscar por nombre, nombre corto o descripción…" />
+        </div>
+        <select class="select" id="filter-category">
+          <option value="">Categoría (todas)</option>
+        </select>
+        <select class="select" id="filter-dev-status">
+          <option value="">Estado de desarrollo (todos)</option>
+        </select>
+        <select class="select" id="filter-doc-status">
+          <option value="">Estado documental (todos)</option>
+        </select>
+        <select class="select" id="filter-area">
+          <option value="">Área (todas)</option>
+        </select>
+        <select class="select" id="filter-progress">
+          <option value="">Avance (cualquiera)</option>
+          <option value="0-25">0% – 25%</option>
+          <option value="26-50">26% – 50%</option>
+          <option value="51-75">51% – 75%</option>
+          <option value="76-100">76% – 100%</option>
+        </select>
+        <div class="toolbar-spacer"></div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;margin:0;">
+          <input type="checkbox" id="filter-archived" style="width:auto;" />
+          Ver archivadas
+        </label>
+      </div>
+
+      <div class="solutions-table-wrap">
+        <table class="solutions-table" id="solutions-table">
+          <thead>
+            <tr>
+              <th>Solución</th>
+              <th>Categoría</th>
+              <th>Desarrollo</th>
+              <th>Documental</th>
+              <th>Avance</th>
+              <th>Última actualización</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="solutions-tbody">
+            <tr><td colspan="7" class="text-muted" style="text-align:center;padding:40px;">Cargando soluciones…</td></tr>
+          </tbody>
+        </table>
+        <div id="empty-state" class="empty-state hidden">
+          <h3>Todavía no hay soluciones registradas</h3>
+          <p>Documenta tu primera solución del ecosistema LillyTech para empezar.</p>
+          <button id="btn-new-solution-empty" class="btn btn-brass hidden">+ Nueva solución</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de confirmación de archivo / restauración -->
+  <div id="archive-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3 id="archive-modal-title">Archivar solución</h3>
+      <p id="archive-modal-text">¿Confirmas que deseas archivar esta solución? No se elimina ninguna información: podrás restaurarla cuando quieras.</p>
+      <div class="modal-actions">
+        <button id="archive-modal-cancel" class="btn btn-ghost">Cancelar</button>
+        <button id="archive-modal-confirm" class="btn btn-danger">Archivar</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

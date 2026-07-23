@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Nueva solución — LillyTech Solution Portfolio Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">LillyTech</span>
+        <span class="brand-sub">Solution Portfolio Manager</span>
+      </div>
+      <div class="header-actions">
+        <div class="user-chip">
+          <span id="user-email">…</span>
+          <span id="user-role" class="role-pill">—</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-ghost">← Volver al panel</a>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <h1 id="form-heading">Nueva solución</h1>
+      <p class="text-muted" style="margin-top:-6px;margin-bottom:22px;">
+        Información general de identificación. La documentación por secciones (propósito, problema de negocio, funcionalidades, etc.) se habilita en la siguiente etapa.
+      </p>
+
+      <div id="readonly-notice" class="form-success hidden">
+        Estás en modo de solo lectura: tu rol no permite editar esta información.
+      </div>
+      <div id="form-error" class="form-error hidden" role="alert"></div>
+      <div id="form-success" class="form-success hidden" role="status"></div>
+
+      <div class="form-card">
+        <form id="solution-form" novalidate>
+          <div class="field-group">
+            <label for="name">Nombre oficial de la solución <span style="color:var(--color-rust)">*</span></label>
+            <input class="input" type="text" id="name" name="name" required maxlength="180" />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="short_name">Nombre corto o comercial <span class="optional-tag">(opcional)</span></label>
+              <input class="input" type="text" id="short_name" name="short_name" maxlength="80" />
+            </div>
+            <div class="field-group">
+              <label for="current_version">Versión actual <span class="optional-tag">(opcional)</span></label>
+              <input class="input" type="text" id="current_version" name="current_version" maxlength="30" placeholder="p. ej. 1.2" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="short_description">Descripción breve <span class="optional-tag">(opcional)</span></label>
+            <textarea class="input" id="short_description" name="short_description" maxlength="400" placeholder="Cómo se describe la solución en una sola frase"></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="dev_status">Estado de desarrollo</label>
+              <select class="select" id="dev_status" name="dev_status"></select>
+            </div>
+            <div class="field-group">
+              <label for="doc_status">Estado documental</label>
+              <select class="select" id="doc_status" name="doc_status"></select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="category">Categoría <span class="optional-tag">(opcional)</span></label>
+              <input class="input" type="text" id="category" name="category" maxlength="80" list="category-suggestions" />
+              <datalist id="category-suggestions"></datalist>
+            </div>
+            <div class="field-group">
+              <label for="main_area">Área principal beneficiada <span class="optional-tag">(opcional)</span></label>
+              <input class="input" type="text" id="main_area" name="main_area" maxlength="120" list="area-suggestions" />
+              <datalist id="area-suggestions"></datalist>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="additional_areas">Otras áreas que participan o se benefician <span class="optional-tag">(opcional)</span></label>
+            <input class="input" type="text" id="additional_areas" name="additional_areas" maxlength="300" />
+          </div>
+
+          <div class="field-group">
+            <label for="responsible_person">Responsable de la solución <span class="optional-tag">(opcional)</span></label>
+            <input class="input" type="text" id="responsible_person" name="responsible_person" maxlength="120" />
+          </div>
+
+          <div class="field-group">
+            <label for="general_notes">Observaciones generales <span class="optional-tag">(opcional)</span></label>
+            <textarea class="input" id="general_notes" name="general_notes" maxlength="2000"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <a href="dashboard.html" class="btn btn-ghost">Cancelar</a>
+            <button type="submit" id="submit-btn" class="btn btn-primary">Guardar información general</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/solution-edit.js"></script>
+</body>
+</html>
