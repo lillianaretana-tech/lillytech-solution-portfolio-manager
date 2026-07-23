@@ -224,6 +224,7 @@ function renderTable() {
           <div class="row-actions">
             <a class="btn btn-ghost btn-sm" href="solution-edit.html?id=${s.id}">${editable ? 'Editar' : 'Abrir'}</a>
             <a class="btn btn-brass btn-sm" href="solution-form.html?id=${s.id}">${editable ? 'Documentar' : 'Ver documentación'}</a>
+            <a class="btn btn-ghost btn-sm" href="report.html?id=${s.id}">Reporte</a>
             ${editable ? `<button class="btn btn-danger btn-sm" data-archive-toggle="${s.id}">${s.is_archived ? 'Restaurar' : 'Archivar'}</button>` : ''}
           </div>
         </td>
